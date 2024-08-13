@@ -746,31 +746,16 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
         ]
     };
     function initializeChart() {
-    // 移除原始图片的父级元素
-    var imgWrapper = document.querySelector('.s-img-wrapper');
-    if (imgWrapper) {
-        imgWrapper.remove();
-    }
-
-    // 初始化ECharts图表
-    var myChart = echarts.init(document.getElementById('chart-container1'));
-    myChart.setOption(option);
-}
-
-    // 页面加载完成后初始化图表
-    window.onload = function() {
-    var imgWrapper = document.querySelector('.s-img-wrapper');
-    if (imgWrapper) {
-        var chartContainer = document.createElement('div');
-        chartContainer.id = 'chart-container1';
-        chartContainer.style.width = '100%';
-        chartContainer.style.height = '400px';
-        
-        imgWrapper.parentNode.replaceChild(chartContainer, imgWrapper);
-
-        var myChart = echarts.init(chartContainer);
+        var myChart = echarts.init(document.getElementById('chart-container1'));
         myChart.setOption(option);
     }
+
+    window.onload = function() {
+        initializeChart();
+        
+        // 定时器，防止图表被覆盖
+        setInterval(initializeChart, 5000);
+    
 };
 </script>
 <noscript><link rel="stylesheet" media="print" href="https://static-fonts-css.strikinglycdn.com/css?family=Ma+Shan+Zheng:regular%7CZhi+Mang+Xing:regular%7CMontserrat:400,700&amp;subset=latin,latin-ext&amp;display=swap" as="style" onload="this.media='all'"></noscript>
