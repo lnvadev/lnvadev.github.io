@@ -277,6 +277,17 @@ window.$S={};$S.app_instances=[];$S.nav=[{"name":"\/1","uid":"2e74e4ab-fbbb-4103
   // record Fackbook analytics cookies
   handleRecordFacebookAnalyticsCookies();
 </script>
+<script>
+  // 禁用所有懒加载
+  window.addEventListener('load', function() {
+      const lazyImages = document.querySelectorAll('.lazyload, .lazyloaded');
+      lazyImages.forEach(function(img) {
+          img.classList.remove('lazyload');
+          img.classList.add('lazyloaded');
+      });
+  });
+</script>
+
 
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <meta content="width=device-width,initial-scale=1.0,user-scalable=yes,minimum-scale=1.0,maximum-scale=3.0" id="viewport" name="viewport">
@@ -741,16 +752,32 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
         ]
     };
     function initializeChart() {
-        var myChart = echarts.init(document.getElementById('chart-container1'));
-        myChart.setOption(option);
+    // 移除原始图片的父级元素
+    var imgWrapper = document.querySelector('.s-img-wrapper');
+    if (imgWrapper) {
+        imgWrapper.remove();
     }
+
+    // 初始化ECharts图表
+    var myChart = echarts.init(document.getElementById('chart-container1'));
+    myChart.setOption(option);
+}
 
     // 页面加载完成后初始化图表
     window.onload = function() {
-        initializeChart();
-        // 每隔5秒刷新图表
-        setInterval(initializeChart, 5000);
-    };
+    var imgWrapper = document.querySelector('.s-img-wrapper');
+    if (imgWrapper) {
+        var chartContainer = document.createElement('div');
+        chartContainer.id = 'chart-container1';
+        chartContainer.style.width = '100%';
+        chartContainer.style.height = '400px';
+        
+        imgWrapper.parentNode.replaceChild(chartContainer, imgWrapper);
+
+        var myChart = echarts.init(chartContainer);
+        myChart.setOption(option);
+    }
+};
 </script>
 <noscript><link rel="stylesheet" media="print" href="https://static-fonts-css.strikinglycdn.com/css?family=Ma+Shan+Zheng:regular%7CZhi+Mang+Xing:regular%7CMontserrat:400,700&amp;subset=latin,latin-ext&amp;display=swap" as="style" onload="this.media='all'"></noscript>
 </body>
