@@ -543,10 +543,14 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
   })
   window.addEventListener('load', function() {
     if (window.afterBundleLoadTrack) {
-      afterBundleLoadTrack()
+        afterBundleLoadTrack();
+        // 重新渲染图表
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption(option);
     }
   })
 </script>
+
 window.onload = function() {
   // 基于准备好的 dom，初始化 echarts 实例
         var myChart = echarts.init(document.getElementById('main'));
