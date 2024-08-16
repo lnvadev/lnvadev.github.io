@@ -370,12 +370,13 @@ window.runAfterDomBinding = {
 <style>
   /* 确保图表容器的样式不被覆盖 */
   #main {
-      width: 900px;
-      height: 800px;
-      position: relative;
-      z-index: 999;
-      display: block !important;
-  }
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 600px;
+    height: 400px;
+    z-index: 10000;
+}
 </style>
 </head>
 <body class='show  locale-zh-CN' id='user_sites' theme_name='s5-theme'>
@@ -561,116 +562,124 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
   })
 </script>
 <script>
-        // 初始化图表的代码
-        function initChart() {
-            var myChart = echarts.init(document.getElementById('main'));
+  // 初始化图表的代码
+  function initChart() {
+      var myChart = echarts.init(document.getElementById('main'));
 
-            // prettier-ignore
-            let dataAxis = ['浙江', '河南', '江苏', '广东', '福建', '吉林', '山东', '河北', '辽宁', '安徽', '湖南', '四川', '上海', '山西', '湖北', '黑龙江', '广西', '江西', '内蒙古', '陕西'];
-            // prettier-ignore
-            let data = [53711, 47695, 44726, 42512, 35528, 31389, 30878, 27586, 26889, 25942, 23938, 23306, 20524, 19720, 19202, 18051, 15738, 15417, 14735, 14184];
-            let yMax = 60000;
-            let dataShadow = [];
-            for (let i = 0; i < data.length; i++) {
-                dataShadow.push(yMax);
-            }
-            
-            // 配置图表的选项
-            var option = {
-                title: {
-                    text: '电信诈骗案发地区分布前20名地区',
-                    subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
-                },
-                xAxis: {
-                    data: dataAxis,
-                    axisLabel: {
-                        inside: true,
-                        color: '#fff'
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLine: {
-                        show: false
-                    },
-                    z: 10
-                },
-                yAxis: {
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        color: '#999'
-                    }
-                },
-                dataZoom: [
-                    {
-                        type: 'inside'
-                    }
-                ],
-                series: [
-                    {
-                        type: 'bar',
-                        showBackground: true,
-                        itemStyle: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                { offset: 0, color: '#83bff6' },
-                                { offset: 0.5, color: '#188df0' },
-                                { offset: 1, color: '#188df0' }
-                            ])
-                        },
-                        emphasis: {
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                    { offset: 0, color: '#2378f7' },
-                                    { offset: 0.7, color: '#2378f7' },
-                                    { offset: 1, color: '#83bff6' }
-                                ])
-                            }
-                        },
-                        data: data
-                    }
-                ]
-            };
-            
-            // 使用配置项设置图表
-            myChart.setOption(option);
+      // prettier-ignore
+      let dataAxis = ['浙江', '河南', '江苏', '广东', '福建', '吉林', '山东', '河北', '辽宁', '安徽', '湖南', '四川', '上海', '山西', '湖北', '黑龙江', '广西', '江西', '内蒙古', '陕西'];
+      // prettier-ignore
+      let data = [53711, 47695, 44726, 42512, 35528, 31389, 30878, 27586, 26889, 25942, 23938, 23306, 20524, 19720, 19202, 18051, 15738, 15417, 14735, 14184];
+      let yMax = 60000;
+      let dataShadow = [];
+      for (let i = 0; i < data.length; i++) {
+          dataShadow.push(yMax);
+      }
+      
+      // 配置图表的选项
+      var option = {
+          title: {
+              text: '电信诈骗案发地区分布前20名地区',
+              subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
+          },
+          xAxis: {
+              data: dataAxis,
+              axisLabel: {
+                  inside: true,
+                  color: '#fff'
+              },
+              axisTick: {
+                  show: false
+              },
+              axisLine: {
+                  show: false
+              },
+              z: 10
+          },
+          yAxis: {
+              axisLine: {
+                  show: false
+              },
+              axisTick: {
+                  show: false
+              },
+              axisLabel: {
+                  color: '#999'
+              }
+          },
+          dataZoom: [
+              {
+                  type: 'inside'
+              }
+          ],
+          series: [
+              {
+                  type: 'bar',
+                  showBackground: true,
+                  itemStyle: {
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                          { offset: 0, color: '#83bff6' },
+                          { offset: 0.5, color: '#188df0' },
+                          { offset: 1, color: '#188df0' }
+                      ])
+                  },
+                  emphasis: {
+                      itemStyle: {
+                          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                              { offset: 0, color: '#2378f7' },
+                              { offset: 0.7, color: '#2378f7' },
+                              { offset: 1, color: '#83bff6' }
+                          ])
+                      }
+                  },
+                  data: data
+              }
+          ]
+      };
+      
+      // 使用配置项设置图表
+      myChart.setOption(option);
 
-            // 添加点击事件，允许用户点击柱状图进行数据缩放
-            const zoomSize = 6;
-            myChart.on('click', function (params) {
-                myChart.dispatchAction({
-                    type: 'dataZoom',
-                    startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-                    endValue:
-                        dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
-                });
-            });
-        }
+      // 添加点击事件，允许用户点击柱状图进行数据缩放
+      const zoomSize = 6;
+      myChart.on('click', function (params) {
+          myChart.dispatchAction({
+              type: 'dataZoom',
+              startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+              endValue:
+                  dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+          });
+      });
+  }
 
-        // 使用 MutationObserver 监控 DOM 变化
-        var targetNode = document.getElementById('main');
-        var observer = new MutationObserver(function(mutationsList, observer) {
-            for (var mutation of mutationsList) {
-                if (mutation.type === 'childList' || mutation.type === 'attributes') {
-                    console.log('图表容器被修改:', mutation);
-                    // 重新渲染图表
-                    initChart();
-                }
-            }
-        });
+  // 使用 MutationObserver 监控 DOM 变化
+  var targetNode = document.getElementById('main');
+  var observer = new MutationObserver(function(mutationsList, observer) {
+      for (var mutation of mutationsList) {
+          if (mutation.type === 'childList' || mutation.type === 'attributes') {
+              console.log('图表容器被修改:', mutation);
+              // 重新渲染图表
+              initChart();
+          }
+      }
+  });
 
-        observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+  observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
 
-        // 在页面加载完成后延迟初始化图表
-        window.onload = function() {
-            setTimeout(function() {
+  // 在页面加载完成后延迟初始化图表
+  window.onload = function() {
+        initChart();
+
+        // 每隔一秒检查一次图表是否被隐藏或覆盖
+        setInterval(function() {
+            var chartElement = document.getElementById('main');
+            if (chartElement.style.display === 'none' || chartElement.offsetHeight === 0) {
+                chartElement.style.display = 'block';
+                chartElement.style.height = '400px';
                 initChart();
-            }, 1000);  // 延迟1秒初始化
-        };
+            }
+        }, 1000);
+  };
 </script>
 </body>
 </html>
