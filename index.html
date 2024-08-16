@@ -547,8 +547,8 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
     }
   })
 </script>
-<script>
-        // 基于准备好的 dom，初始化 echarts 实例
+window.onload = function() {
+  // 基于准备好的 dom，初始化 echarts 实例
         var myChart = echarts.init(document.getElementById('main'));
 
         // prettier-ignore
@@ -636,7 +636,8 @@ if (typeof getCookieItem === 'function' && (getCookieItem('__strk_cookie_eu_visi
               dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
           });
         });
-</script>
+};
+
 </body>
 </html>
 <!-- Powered by Strikingly.com 4 (1) Aug 16, 2024 at 07:46-->
