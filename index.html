@@ -370,13 +370,12 @@ window.runAfterDomBinding = {
 <style>
   /* 确保图表容器的样式不被覆盖 */
   #main {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    width: 600px;
-    height: 400px;
-    z-index: 10000;
-}
+            width: 600px;
+            height: 400px;
+            position: relative;
+            z-index: 999;
+            display: block !important;
+        }
 </style>
 </head>
 <body class='show  locale-zh-CN' id='user_sites' theme_name='s5-theme'>
